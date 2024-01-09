@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using POC.Multitenant.Data.Mappings;
+using POC.Multitenant.Data.Seeds;
 using POC.Multitenant.Domain.Entities;
 
 namespace POC.Multitenant.Data.Contexts
@@ -18,6 +19,8 @@ namespace POC.Multitenant.Data.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserMapping());
+
+            
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using POC.Multitenant.Domain.Interfaces.Services;
 
 namespace POC.Multitenant.API.Controllers
 {
-    public class UserController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
@@ -12,14 +14,14 @@ namespace POC.Multitenant.API.Controllers
         {
             _logger = logger;
             _userService = userService;
-
         }
-        [HttpGet]
-        public IActionResult GetAll()
+
+        [HttpGet()]
+        public IActionResult Get()
         {
             var result = _userService.GetAll();
 
-            return View();
+            return Ok(result);
         }
     }
 }
