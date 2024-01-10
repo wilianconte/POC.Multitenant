@@ -7,13 +7,11 @@ namespace POC.Multitenant.Data.Contexts
 {
     public class DataContext : DbContext
     {
-        private readonly ICurrentTenantService _currentTenantService;
-        public Guid CurrentTenantId { get; set; }
+        private readonly Guid _tenantId;
 
-        public DataContext(ICurrentTenantService currentTenantService, DbContextOptions<DataContext> options) : base(options)
+        public DataContext(ITenantService currentTenantService, DbContextOptions<DataContext> options) : base(options)
         {
-            _currentTenantService = currentTenantService;
-            CurrentTenantId = _currentTenantService.TenantId;
+            _tenantId = currentTenantService.TenantId;
         }
 
         public DbSet<User> Users { get; set; }
@@ -24,7 +22,8 @@ namespace POC.Multitenant.Data.Contexts
 
             modelBuilder.ApplyConfiguration(new UserMapping());
 
-            modelBuilder.Entity<User>().HasQueryFilter(a => a.TenantId == CurrentTenantId);
+            //Set QueryFilter
+            modelBuilder.Entity<User>().HasQueryFilter(a => a.TenantId == _tenantId);
         }
     }
 }

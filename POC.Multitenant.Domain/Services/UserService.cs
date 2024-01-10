@@ -6,11 +6,11 @@ namespace POC.Multitenant.Domain.Services
 {
     public class UserService : IUserService
     {
-        private readonly ICurrentTenantService _tenantService;
+        private readonly ITenantService _tenantService;
 
         private readonly IUserRepository _repository;
 
-        public UserService(ICurrentTenantService tenantService, IUserRepository repository)
+        public UserService(ITenantService tenantService, IUserRepository repository)
         { 
             _tenantService = tenantService;
             _repository = repository;

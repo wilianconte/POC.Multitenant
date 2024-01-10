@@ -1,7 +1,7 @@
 ﻿namespace POC.Multitenant.Domain.Interfaces.Services;
 
-public interface ICurrentTenantService
+public interface ITenantService
 {
     Guid TenantId { get; set; }
-    public Task<bool> SetTenant(Guid tenant);
+    public bool SetTenant(Guid tenant);
 }

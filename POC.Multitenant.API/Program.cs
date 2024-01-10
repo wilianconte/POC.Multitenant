@@ -17,19 +17,14 @@ builder.Services.AddSwaggerGen();
 
 
 // Add IoC
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
 builder.Services.AddCustomRepositories();
 builder.Services.AddCustomServices();
 
 // Current tenant service with scoped lifetime (created per each request)
-builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
+builder.Services.AddScoped<ITenantService, TenantService>();
 
 // Configuração do DbContext
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddDbContext<TenantDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

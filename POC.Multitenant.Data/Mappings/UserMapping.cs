@@ -7,6 +7,10 @@ namespace POC.Multitenant.Data.Mappings
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {
+        public UserMapping() 
+        {
+        }
+
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users");
