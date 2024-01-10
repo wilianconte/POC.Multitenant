@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using POC.Multitenant.API.Extensions;
 using POC.Multitenant.Data.Contexts;
-using POC.Multitenant.Domain.Interfaces.Services;
 using POC.Multitenant.Domain.Middleware;
-using POC.Multitenant.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // Add IoC
 builder.Services.AddCustomRepositories();
 builder.Services.AddCustomServices();
-
-// Current tenant service with scoped lifetime (created per each request)
-builder.Services.AddScoped<ITenantService, TenantService>();
 
 // Configuração do DbContext
 builder.Services.AddDbContext<DataContext>(options =>
