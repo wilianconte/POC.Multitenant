@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using POC.Multitenant.Data.Mappings;
 using POC.Multitenant.Domain.Entities;
+using POC.Multitenant.Domain.Interfaces;
 using POC.Multitenant.Domain.Interfaces.Services;
 
 namespace POC.Multitenant.Data.Contexts
@@ -9,9 +10,9 @@ namespace POC.Multitenant.Data.Contexts
     {
         private readonly Guid _tenantId;
 
-        public DataContext(ITenantService currentTenantService, DbContextOptions<DataContext> options) : base(options)
+        public DataContext(ITenantService tenantService, DbContextOptions<DataContext> options) : base(options)
         {
-            _tenantId = currentTenantService.TenantId;
+            _tenantId = tenantService.TenantId;
         }
 
         public DbSet<User> Users { get; set; }
@@ -24,6 +25,25 @@ namespace POC.Multitenant.Data.Contexts
 
             //Set QueryFilter
             modelBuilder.Entity<User>().HasQueryFilter(a => a.TenantId == _tenantId);
+
         }
+
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<IMustHaveTenant>().ToList()) 
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                    case EntityState.Modified:
+                        entry.Entity.TenantId = _tenantId;
+                        break;
+                }
+            }
+
+            var result = base.SaveChanges();
+            return result;
+        }
+
     }
 }

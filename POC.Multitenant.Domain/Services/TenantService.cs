@@ -13,6 +13,7 @@ public class TenantService : ITenantService
     public bool SetTenant(Guid tenant)
     {
         TenantId = tenant;
+
         return true;
     }
 }
