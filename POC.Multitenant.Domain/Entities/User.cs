@@ -1,6 +1,8 @@
-﻿namespace POC.Multitenant.Domain.Entities
+﻿using POC.Multitenant.Domain.Interfaces;
+
+namespace POC.Multitenant.Domain.Entities
 {
-    public class User
+    public class User : IMustHaveTenant
     {
         public Guid TenantId { get; set; }
         public int Id { get; set; }

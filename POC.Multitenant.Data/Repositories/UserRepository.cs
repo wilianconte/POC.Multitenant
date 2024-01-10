@@ -17,8 +17,6 @@ namespace POC.Multitenant.Data.Repositories
 
         public List<User> GetAll()
         {
-            var result = _context.Set<User>().ToList();
-
             return _context.Set<User>().ToList();
         }
     }
