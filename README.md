@@ -20,5 +20,10 @@ dotnet ef migrations add InitialCreate --project ..\POC.Multitenant.Data
 dotnet ef database update --project ..\POC.Multitenant.Data
 
 # Referencias
+
+#### Implementação multi-tenant
 - https://www.milanjovanovic.tech/blog/multi-tenant-applications-with-ef-core
 - https://aspnano.com/build-multi-tenant-application-core-asp-net-7/
+
+#### ASP.NET Core, CQRS e Mediator
+- https://balta.io/blog/aspnet-core-cqrs-mediator
