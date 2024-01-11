@@ -16,9 +16,9 @@ namespace POC.Multitenant.Domain.Services
             _repository = repository;
         }
 
-        public List<User> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         { 
-            return _repository.GetAll();
+            return await _repository.GetAllUsersAsync();
         }
     }
 }

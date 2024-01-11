@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using POC.Multitenant.Domain.Commands.Requests;
+using POC.Multitenant.Domain.Interfaces.Handlers;
 using POC.Multitenant.Domain.Interfaces.Services;
 
 namespace POC.Multitenant.API.Controllers
@@ -16,12 +18,25 @@ namespace POC.Multitenant.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet()]
-        public IActionResult Get()
+        [HttpGet("")]
+        public async Task<IActionResult> GetAsync()
         {
-            var result = _userService.GetAll();
+            var result = await _userService.GetAllAsync();
 
             return Ok(result);
+        }
+
+        [HttpPost("")]
+        public IActionResult Create
+        (
+            [FromServices] ICreateUserHandler handler,
+            [FromBody] CreateUserRequest command,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var response = handler.HandleAsync(command);
+
+            return Ok(response);
         }
     }
 }

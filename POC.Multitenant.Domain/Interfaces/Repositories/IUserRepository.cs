@@ -4,6 +4,8 @@ namespace POC.Multitenant.Domain.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        List<User> GetAll();
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(int id);
+        User CreateUser(User user);
     }
 }

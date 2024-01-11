@@ -25,7 +25,6 @@ namespace POC.Multitenant.Data.Contexts
 
             //Set QueryFilter
             modelBuilder.Entity<User>().HasQueryFilter(a => a.TenantId == _tenantId);
-
         }
 
         public override int SaveChanges()
@@ -44,6 +43,5 @@ namespace POC.Multitenant.Data.Contexts
             var result = base.SaveChanges();
             return result;
         }
-
     }
 }

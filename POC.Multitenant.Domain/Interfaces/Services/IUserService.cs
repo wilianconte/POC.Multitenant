@@ -4,6 +4,6 @@ namespace POC.Multitenant.Domain.Interfaces.Services
 {
     public interface IUserService
     {
-        List<User> GetAll();
+        Task<IEnumerable<User>> GetAllAsync();
     }
 }

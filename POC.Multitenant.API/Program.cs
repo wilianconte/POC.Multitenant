@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using POC.Multitenant.API.Extensions;
 using POC.Multitenant.Data.Contexts;
+using POC.Multitenant.Domain.Handlers;
+using POC.Multitenant.Domain.Interfaces.Handlers;
 using POC.Multitenant.Domain.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddSwaggerGen();
 // Add IoC
 builder.Services.AddCustomRepositories();
 builder.Services.AddCustomServices();
+//Handlers
+builder.Services.AddTransient<ICreateUserHandler, CreateUserHandler>();
 
 // Configuração do DbContext
 builder.Services.AddDbContext<DataContext>(options =>
